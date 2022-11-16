@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import nasaService from './services/nasa'
+import { useEffect, useState } from 'react'
+import Sidebar from './components/Sidebar'
+import Drawer from './components/Drawer'
+import Picture from './components/Picture'
+import './index.css'
 
-function App() {
+const App = () => {
+  const [picture, setPicture] = useState(null)
+  const [drawer, toggleDrawer] = useState(false)
+
+  useEffect(() => {
+    nasaService
+      .getPictureOfTheDay()
+      .then((response) => {
+        console.log(response)
+        setPicture(response.data)
+      })
+      .catch((error) => console.log(error))
+  }, [])
+
+  const handleClick = () => {
+    toggleDrawer(!drawer)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='flex bg-silver min-h-screen'>
+      <Drawer className='' toggled={drawer} />
+      <Sidebar handleClick={handleClick} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
