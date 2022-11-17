@@ -6,11 +6,6 @@ const Drawer = ({ toggled }) => {
         toggled ? '' : '-left-96 w-0'
       }`}
     >
-      <div className="text-silver text-xl font-medium">
-        <ul>
-          <li>something</li>
-        </ul>
-      </div>
     </div>
   )
 }
